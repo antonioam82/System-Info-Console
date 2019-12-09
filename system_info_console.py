@@ -16,6 +16,7 @@ def get_size(bytes, suffix="B"):
 
 def clear():
     display.clear()
+    display.appendtext("USE THE BUTTONS TO SELECT THE INFORMATION TO DISPLAY.\n\n")
 
 def network():
     display.appendtext(("="*40)+"Network Information"+(("=")*40)+"\n")
@@ -36,7 +37,7 @@ def network():
     display.appendtext(f"Total Bytes Received: {get_size(net_io.bytes_recv)}\n")
 
 def disk():
-    display.appendtext(("="*40)+"Disk Information"+(("=")*40)+"\n")
+    display.appendtext(("="*41)+"Disk Information"+(("=")*41)+"\n")
     display.appendtext("Partitions and Usage:\n")
     partitions = psutil.disk_partitions()
     for partition in partitions:
@@ -80,7 +81,7 @@ def system():
     display.appendtext(f"Processor: {uname.processor}\n")
     
 def cpu():
-    display.appendtext(("="*40)+"CPU Information"+(("=")*40)+"\n")
+    display.appendtext(("="*41)+"CPU Information"+(("=")*41)+"\n")
     display.appendtext(("Physical cores: "+str(psutil.cpu_count(logical=False))))
     display.appendtext("\n")
     display.appendtext(("Total cores: "+str(psutil.cpu_count(logical=True))))
@@ -120,6 +121,8 @@ botones.add('NETWORK',command=lambda:inicia(4),bg='light green')
 botones.add('CLEAR',command=clear,bg='light blue')
 
 botones.alignbuttons()
+
+clear()
 
 ventana.mainloop()
     

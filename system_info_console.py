@@ -14,6 +14,9 @@ def get_size(bytes, suffix="B"):
             return f"{bytes:.2f}{unit}{suffix}"
         bytes /= factor
 
+def clear():
+    display.clear()
+
 def system():
     display.appendtext(("="*40)+"System Information"+(("=")*40)+"\n")
     uname = platform.uname()
@@ -49,8 +52,8 @@ def inicia(index):
 display = Pmw.ScrolledText(ventana, hscrollmode='none',
                       vscrollmode='dynamic', hull_relief='sunken',
                       hull_background='gray20', hull_borderwidth=10,
-                      text_background='honeydew4', text_width=120,
-                      text_foreground='black', text_height=37,
+                      text_background='black', text_width=120,
+                      text_foreground='green', text_height=37,
           text_padx=10, text_pady=10, text_relief='groove',
                       text_font=('Fixedsys', 10))
 display.pack(padx=0,pady=0)
@@ -60,5 +63,8 @@ botones.pack(fill='both', expand=1, padx=1, pady=1)
 
 botones.add('System',command=lambda:inicia(0))
 botones.add('CPU',command=lambda:inicia(1))
+botones.add('CLEAR',command=clear)
 
 ventana.mainloop()
+    
+

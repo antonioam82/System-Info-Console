@@ -17,6 +17,24 @@ def get_size(bytes, suffix="B"):
 def clear():
     display.clear()
 
+def network():
+    display.appendtext(("="*20)+"Network Information"+(("=")*20)+"\n")
+    if_addrs = psutil.net_if_addrs()
+    for interface_name, interface_addresses in if_addrs.items():
+        for address in interface_addresses:
+            display.appendtext(f"=== Interface: {interface_name} ===\n")
+            if str(address.family) == 'AddressFamily.AF_INET':
+                display.appendtext(f"  IP Address: {address.address}\n")
+                display.appendtext(f"  Netmask: {address.netmask}\n")
+                display.appendtext(f"  Broadcast IP: {address.broadcast}\n")
+            elif str(address.family) == 'AddressFamily.AF_PACKET':
+                display.appendtext(f"  MAC Address: {address.address}\n")
+                display.appendtext(f"  Netmask: {address.netmask}\n")
+                display.appendtext(f"  Broadcast MAC: {address.broadcast}\n")
+    net_io = psutil.net_io_counters()
+    display.appendtext(f"Total Bytes Sent: {get_size(net_io.bytes_sent)}\n")
+    display.appendtext(f"Total Bytes Received: {get_size(net_io.bytes_recv)}\n")
+
 def disk():
     display.appendtext(("="*20)+"Disk Information"+(("=")*20)+"\n")
     display.appendtext("Partitions and Usage:\n")
@@ -78,7 +96,7 @@ def cpu():
     
 
 def inicia(index):
-    infos={0:system,1:cpu,2:memory,3:disk}
+    infos={0:system,1:cpu,2:memory,3:disk,4:network}
     t=threading.Thread(target=infos[index])
     t.start()
 
@@ -97,9 +115,10 @@ botones.pack(fill='both', expand=1, padx=1, pady=1)
 
 botones.add('System',command=lambda:inicia(0))
 botones.add('CPU',command=lambda:inicia(1))
-botones.add('CLEAR',command=clear)
 botones.add('MEMORY',command=lambda:inicia(2))
 botones.add('DISK',command=lambda:inicia(3))
+botones.add('NETWORK',command=lambda:inicia(4))
+botones.add('CLEAR',command=clear)
 
 ventana.mainloop()
     

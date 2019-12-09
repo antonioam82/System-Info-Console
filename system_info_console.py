@@ -17,6 +17,26 @@ def get_size(bytes, suffix="B"):
 def clear():
     display.clear()
 
+def disk():
+    display.appendtext(("="*20)+"Disk Information"+(("=")*20)+"\n")
+    display.appendtext("Partitions and Usage:\n")
+    partitions = psutil.disk_partitions()
+    for partition in partitions:
+        display.appendtext(f"=== Device: {partition.device} ===\n")
+        display.appendtext(f"Mountpoint: {partition.mountpoint}\n")
+        display.appendtext(f"File system type: {partition.fstype}\n")
+        try:
+            partition_usage = psutil.disk_usage(partition.mountpoint)
+        except PermissionError:
+            continue
+        display.appendtext(f"Total Size: {get_size(partition_usage.total)}\n")
+        display.appendtext(f"Used: {get_size(partition_usage.used)}\n")
+        display.appendtext(f"Free: {get_size(partition_usage.free)}\n")
+        display.appendtext(f"Percentage: {partition_usage.percent}%\n")
+    disk_io = psutil.disk_io_counters()
+    display.appendtext(f"Total read: {get_size(disk_io.read_bytes)}\n")
+    display.appendtext(f"Total write: {get_size(disk_io.write_bytes)}\n")
+
 def memory():
     display.appendtext(("="*40)+"Memory Information"+(("=")*40)+"\n")
     svmem = psutil.virtual_memory()
@@ -58,9 +78,10 @@ def cpu():
     
 
 def inicia(index):
-    infos={0:system,1:cpu,2:memory}
+    infos={0:system,1:cpu,2:memory,3:disk}
     t=threading.Thread(target=infos[index])
     t.start()
+
 
 display = Pmw.ScrolledText(ventana, hscrollmode='none',
                       vscrollmode='dynamic', hull_relief='sunken',
@@ -78,6 +99,7 @@ botones.add('System',command=lambda:inicia(0))
 botones.add('CPU',command=lambda:inicia(1))
 botones.add('CLEAR',command=clear)
 botones.add('MEMORY',command=lambda:inicia(2))
+botones.add('DISK',command=lambda:inicia(3))
 
 ventana.mainloop()
     

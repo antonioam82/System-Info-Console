@@ -18,7 +18,7 @@ def clear():
     display.clear()
 
 def network():
-    display.appendtext(("="*20)+"Network Information"+(("=")*20)+"\n")
+    display.appendtext(("="*40)+"Network Information"+(("=")*40)+"\n")
     if_addrs = psutil.net_if_addrs()
     for interface_name, interface_addresses in if_addrs.items():
         for address in interface_addresses:
@@ -36,24 +36,24 @@ def network():
     display.appendtext(f"Total Bytes Received: {get_size(net_io.bytes_recv)}\n")
 
 def disk():
-    display.appendtext(("="*20)+"Disk Information"+(("=")*20)+"\n")
+    display.appendtext(("="*40)+"Disk Information"+(("=")*40)+"\n")
     display.appendtext("Partitions and Usage:\n")
     partitions = psutil.disk_partitions()
     for partition in partitions:
         display.appendtext(f"=== Device: {partition.device} ===\n")
-        display.appendtext(f"Mountpoint: {partition.mountpoint}\n")
-        display.appendtext(f"File system type: {partition.fstype}\n")
+        display.appendtext(f" Mountpoint: {partition.mountpoint}\n")
+        display.appendtext(f" File system type: {partition.fstype}\n")
         try:
             partition_usage = psutil.disk_usage(partition.mountpoint)
         except PermissionError:
             continue
-        display.appendtext(f"Total Size: {get_size(partition_usage.total)}\n")
-        display.appendtext(f"Used: {get_size(partition_usage.used)}\n")
-        display.appendtext(f"Free: {get_size(partition_usage.free)}\n")
-        display.appendtext(f"Percentage: {partition_usage.percent}%\n")
+        display.appendtext(f" Total Size: {get_size(partition_usage.total)}\n")
+        display.appendtext(f" Used: {get_size(partition_usage.used)}\n")
+        display.appendtext(f" Free: {get_size(partition_usage.free)}\n")
+        display.appendtext(f" Percentage: {partition_usage.percent}%\n")
     disk_io = psutil.disk_io_counters()
-    display.appendtext(f"Total read: {get_size(disk_io.read_bytes)}\n")
-    display.appendtext(f"Total write: {get_size(disk_io.write_bytes)}\n")
+    display.appendtext(f" Total read: {get_size(disk_io.read_bytes)}\n")
+    display.appendtext(f" Total write: {get_size(disk_io.write_bytes)}\n")
 
 def memory():
     display.appendtext(("="*40)+"Memory Information"+(("=")*40)+"\n")
@@ -100,12 +100,11 @@ def inicia(index):
     t=threading.Thread(target=infos[index])
     t.start()
 
-
 display = Pmw.ScrolledText(ventana, hscrollmode='none',
                       vscrollmode='dynamic', hull_relief='sunken',
                       hull_background='gray20', hull_borderwidth=10,
-                      text_background='black', text_width=120,
-                      text_foreground='green', text_height=37,
+                      text_background='black', text_width=109,
+                      text_foreground='green', text_height=39,
           text_padx=10, text_pady=10, text_relief='groove',
                       text_font=('Fixedsys', 10))
 display.pack(padx=0,pady=0)

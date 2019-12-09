@@ -113,12 +113,14 @@ display.pack(padx=0,pady=0)
 botones = Pmw.ButtonBox(ventana)
 botones.pack(fill='both', expand=1, padx=1, pady=1)
 
-botones.add('System',command=lambda:inicia(0))
-botones.add('CPU',command=lambda:inicia(1))
-botones.add('MEMORY',command=lambda:inicia(2))
-botones.add('DISK',command=lambda:inicia(3))
-botones.add('NETWORK',command=lambda:inicia(4))
-botones.add('CLEAR',command=clear)
+botones.add('SYSTEM',command=lambda:inicia(0),width=12,bg='light green')
+botones.add('CPU',command=lambda:inicia(1),bg='light green')
+botones.add('MEMORY',command=lambda:inicia(2),bg='light green')
+botones.add('DISK',command=lambda:inicia(3),bg='light green')
+botones.add('NETWORK',command=lambda:inicia(4),bg='light green')
+botones.add('CLEAR',command=clear,bg='light blue')
+
+botones.alignbuttons()
 
 ventana.mainloop()
     

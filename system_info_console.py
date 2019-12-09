@@ -16,7 +16,7 @@ def get_size(bytes, suffix="B"):
 
 def clear():
     display.clear()
-    display.appendtext("USE THE BUTTONS TO SELECT THE INFORMATION TO DISPLAY.\n\n")
+    display.appendtext("USE THE BUTTONS TO SELECT THE INFORMATION.\n\n")
 
 def network():
     display.appendtext(("="*40)+"Network Information"+(("=")*40)+"\n")
@@ -95,7 +95,6 @@ def cpu():
         display.appendtext(f"Core {i}: {percentage}%\n")
     display.appendtext(f"Total CPU Usage: {psutil.cpu_percent()}%\n")
     
-
 def inicia(index):
     infos={0:system,1:cpu,2:memory,3:disk,4:network}
     t=threading.Thread(target=infos[index])
@@ -113,11 +112,11 @@ display.pack(padx=0,pady=0)
 botones = Pmw.ButtonBox(ventana)
 botones.pack(fill='both', expand=1, padx=1, pady=1)
 
-botones.add('SYSTEM',command=lambda:inicia(0),width=12,bg='light green')
-botones.add('CPU',command=lambda:inicia(1),bg='light green')
-botones.add('MEMORY',command=lambda:inicia(2),bg='light green')
-botones.add('DISK',command=lambda:inicia(3),bg='light green')
-botones.add('NETWORK',command=lambda:inicia(4),bg='light green')
+botones.add('System Info',command=lambda:inicia(0),width=15,bg='light green')
+botones.add('CPU Info',command=lambda:inicia(1),bg='light green')
+botones.add('Memory Info',command=lambda:inicia(2),bg='light green')
+botones.add('Disk Info',command=lambda:inicia(3),bg='light green')
+botones.add('Network Info',command=lambda:inicia(4),bg='light green')
 botones.add('CLEAR',command=clear,bg='light blue')
 
 botones.alignbuttons()

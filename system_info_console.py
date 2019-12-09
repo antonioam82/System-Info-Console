@@ -17,6 +17,20 @@ def get_size(bytes, suffix="B"):
 def clear():
     display.clear()
 
+def memory():
+    display.appendtext(("="*40)+"Memory Information"+(("=")*40)+"\n")
+    svmem = psutil.virtual_memory()
+    display.appendtext(f"Total: {get_size(svmem.total)}\n")
+    display.appendtext(f"Available: {get_size(svmem.available)}\n")
+    display.appendtext(f"Used: {get_size(svmem.used)}\n")
+    display.appendtext(f"Percentage: {svmem.percent}%\n")
+    display.appendtext(("="*20)+"SWAP"+("="*20)+"\n")
+    swap = psutil.swap_memory()
+    display.appendtext(f"Total: {get_size(swap.total)}\n")
+    display.appendtext(f"Free: {get_size(swap.free)}\n")
+    display.appendtext(f"Used: {get_size(swap.used)}\n")
+    display.appendtext(f"Percentage: {swap.percent}%\n")
+
 def system():
     display.appendtext(("="*40)+"System Information"+(("=")*40)+"\n")
     uname = platform.uname()
@@ -29,9 +43,9 @@ def system():
     
 def cpu():
     display.appendtext(("="*40)+"CPU Information"+(("=")*40)+"\n")
-    display.appendtext(("Physical cores:", psutil.cpu_count(logical=False)))
+    display.appendtext(("Physical cores: "+str(psutil.cpu_count(logical=False))))
     display.appendtext("\n")
-    display.appendtext(("Total cores:", psutil.cpu_count(logical=True)))
+    display.appendtext(("Total cores: "+str(psutil.cpu_count(logical=True))))
     display.appendtext("\n")
     cpufreq = psutil.cpu_freq()
     display.appendtext(f"Max Frequency: {cpufreq.max:.2f}Mhz\n")
@@ -44,10 +58,9 @@ def cpu():
     
 
 def inicia(index):
-    infos={0:system,1:cpu}
+    infos={0:system,1:cpu,2:memory}
     t=threading.Thread(target=infos[index])
     t.start()
-
 
 display = Pmw.ScrolledText(ventana, hscrollmode='none',
                       vscrollmode='dynamic', hull_relief='sunken',
@@ -64,6 +77,7 @@ botones.pack(fill='both', expand=1, padx=1, pady=1)
 botones.add('System',command=lambda:inicia(0))
 botones.add('CPU',command=lambda:inicia(1))
 botones.add('CLEAR',command=clear)
+botones.add('MEMORY',command=lambda:inicia(2))
 
 ventana.mainloop()
     

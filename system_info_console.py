@@ -48,8 +48,7 @@ def disk():
         display.appendtext(f" File system type: {partition.fstype}\n")
         try:
             partition_usage = psutil.disk_usage(partition.mountpoint)
-        except:
-            display.appendtext("DISK USAGE INFO NOT AVAILABLE\n")
+        except PermissionError:
             continue
         display.appendtext(f" Total Size: {get_size(partition_usage.total)}\n")
         display.appendtext(f" Used: {get_size(partition_usage.used)}\n")

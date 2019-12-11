@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import Pmw
 import platform
 import threading
@@ -46,7 +48,8 @@ def disk():
         display.appendtext(f" File system type: {partition.fstype}\n")
         try:
             partition_usage = psutil.disk_usage(partition.mountpoint)
-        except PermissionError:
+        except:
+            display.appendtext("DISK USAGE INFO NOT AVAILABLE\n")
             continue
         display.appendtext(f" Total Size: {get_size(partition_usage.total)}\n")
         display.appendtext(f" Used: {get_size(partition_usage.used)}\n")
@@ -100,15 +103,17 @@ def inicia(index):
     t=threading.Thread(target=infos[index])
     t.start()
 
+#PANTALLA
 display = Pmw.ScrolledText(ventana, hscrollmode='none',
                       vscrollmode='dynamic', hull_relief='sunken',
                       hull_background='gray20', hull_borderwidth=10,
                       text_background='black', text_width=109,
                       text_foreground='green', text_height=39,
-          text_padx=10, text_pady=10, text_relief='groove',
+                      text_padx=10, text_pady=10, text_relief='groove',
                       text_font=('Fixedsys', 10))
 display.pack(padx=0,pady=0)
 
+#BOTONES
 botones = Pmw.ButtonBox(ventana)
 botones.pack(fill='both', expand=1, padx=1, pady=1)
 

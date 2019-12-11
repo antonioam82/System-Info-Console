@@ -21,7 +21,7 @@ def clear():
     display.appendtext("USE THE BUTTONS TO SELECT THE INFORMATION.\n\n")
 
 def network():
-    display.appendtext(("="*40)+"Network Information"+(("=")*40)+"\n")
+    display.appendtext(("="*45)+"Network Information"+(("=")*45)+"\n")
     if_addrs = psutil.net_if_addrs()
     for interface_name, interface_addresses in if_addrs.items():
         for address in interface_addresses:
@@ -39,7 +39,7 @@ def network():
     display.appendtext(f"Total Bytes Received: {get_size(net_io.bytes_recv)}\n")
 
 def disk():
-    display.appendtext(("="*41)+"Disk Information"+(("=")*41)+"\n")
+    display.appendtext(("="*46)+"Disk Information"+(("=")*46)+"\n")
     display.appendtext("Partitions and Usage:\n")
     partitions = psutil.disk_partitions()
     for partition in partitions:
@@ -59,7 +59,7 @@ def disk():
     display.appendtext(f" Total write: {get_size(disk_io.write_bytes)}\n")
 
 def memory():
-    display.appendtext(("="*40)+"Memory Information"+(("=")*40)+"\n")
+    display.appendtext(("="*45)+"Memory Information"+(("=")*45)+"\n")
     svmem = psutil.virtual_memory()
     display.appendtext(f"Total: {get_size(svmem.total)}\n")
     display.appendtext(f"Available: {get_size(svmem.available)}\n")
@@ -73,7 +73,7 @@ def memory():
     display.appendtext(f"Percentage: {swap.percent}%\n")
 
 def system():
-    display.appendtext(("="*40)+"System Information"+(("=")*40)+"\n")
+    display.appendtext(("="*45)+"System Information"+(("=")*45)+"\n")
     uname = platform.uname()
     display.appendtext(f"System: {uname.system}\n")
     display.appendtext(f"Node Name: {uname.node}\n")
@@ -83,7 +83,7 @@ def system():
     display.appendtext(f"Processor: {uname.processor}\n")
     
 def cpu():
-    display.appendtext(("="*41)+"CPU Information"+(("=")*41)+"\n")
+    display.appendtext(("="*47)+"CPU Information"+(("=")*47)+"\n")
     display.appendtext(("Physical cores: "+str(psutil.cpu_count(logical=False))))
     display.appendtext("\n")
     display.appendtext(("Total cores: "+str(psutil.cpu_count(logical=True))))

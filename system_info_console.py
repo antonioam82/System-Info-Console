@@ -37,6 +37,7 @@ def network():
     net_io = psutil.net_io_counters()
     display.appendtext(f"Total Bytes Sent: {get_size(net_io.bytes_sent)}\n")
     display.appendtext(f"Total Bytes Received: {get_size(net_io.bytes_recv)}\n")
+    display.appendtext("="*109)
 
 def disk():
     display.appendtext(("="*46)+"Disk Information"+(("=")*46)+"\n")
@@ -57,6 +58,7 @@ def disk():
     disk_io = psutil.disk_io_counters()
     display.appendtext(f" Total read: {get_size(disk_io.read_bytes)}\n")
     display.appendtext(f" Total write: {get_size(disk_io.write_bytes)}\n")
+    display.appendtext("="*108)
 
 def memory():
     display.appendtext(("="*45)+"Memory Information"+(("=")*45)+"\n")
@@ -71,6 +73,7 @@ def memory():
     display.appendtext(f"Free: {get_size(swap.free)}\n")
     display.appendtext(f"Used: {get_size(swap.used)}\n")
     display.appendtext(f"Percentage: {swap.percent}%\n")
+    display.appendtext("="*108)
 
 def system():
     display.appendtext(("="*45)+"System Information"+(("=")*45)+"\n")
@@ -81,6 +84,7 @@ def system():
     display.appendtext(f"Version: {uname.version}\n")
     display.appendtext(f"Machine: {uname.machine}\n")
     display.appendtext(f"Processor: {uname.processor}\n")
+    display.appendtext("="*108)
     
 def cpu():
     display.appendtext(("="*47)+"CPU Information"+(("=")*47)+"\n")
@@ -96,6 +100,7 @@ def cpu():
     for i, percentage in enumerate(psutil.cpu_percent(percpu=True)):
         display.appendtext(f"Core {i}: {percentage}%\n")
     display.appendtext(f"Total CPU Usage: {psutil.cpu_percent()}%\n")
+    display.appendtext("="*109)
     
 def inicia(index):
     infos={0:system,1:cpu,2:memory,3:disk,4:network}
@@ -128,5 +133,6 @@ botones.alignbuttons()
 clear()
 
 ventana.mainloop()
+
     
 
